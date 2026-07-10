@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as WisdomRouteImport } from './routes/wisdom'
+import { Route as SettingsRouteImport } from './routes/settings'
 import { Route as MissionsRouteImport } from './routes/missions'
 import { Route as LedgerRouteImport } from './routes/ledger'
 import { Route as IncentivesRouteImport } from './routes/incentives'
@@ -21,6 +22,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const WisdomRoute = WisdomRouteImport.update({
   id: '/wisdom',
   path: '/wisdom',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SettingsRoute = SettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MissionsRoute = MissionsRouteImport.update({
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/incentives': typeof IncentivesRoute
   '/ledger': typeof LedgerRoute
   '/missions': typeof MissionsRoute
+  '/settings': typeof SettingsRoute
   '/wisdom': typeof WisdomRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/incentives': typeof IncentivesRoute
   '/ledger': typeof LedgerRoute
   '/missions': typeof MissionsRoute
+  '/settings': typeof SettingsRoute
   '/wisdom': typeof WisdomRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/incentives': typeof IncentivesRoute
   '/ledger': typeof LedgerRoute
   '/missions': typeof MissionsRoute
+  '/settings': typeof SettingsRoute
   '/wisdom': typeof WisdomRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/incentives'
     | '/ledger'
     | '/missions'
+    | '/settings'
     | '/wisdom'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/incentives'
     | '/ledger'
     | '/missions'
+    | '/settings'
     | '/wisdom'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/incentives'
     | '/ledger'
     | '/missions'
+    | '/settings'
     | '/wisdom'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   IncentivesRoute: typeof IncentivesRoute
   LedgerRoute: typeof LedgerRoute
   MissionsRoute: typeof MissionsRoute
+  SettingsRoute: typeof SettingsRoute
   WisdomRoute: typeof WisdomRoute
 }
 
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/wisdom'
       fullPath: '/wisdom'
       preLoaderRoute: typeof WisdomRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/settings': {
+      id: '/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/missions': {
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   IncentivesRoute: IncentivesRoute,
   LedgerRoute: LedgerRoute,
   MissionsRoute: MissionsRoute,
+  SettingsRoute: SettingsRoute,
   WisdomRoute: WisdomRoute,
 }
 export const routeTree = rootRouteImport
