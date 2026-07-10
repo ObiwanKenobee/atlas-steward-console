@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WisdomRouteImport } from './routes/wisdom'
 import { Route as MissionsRouteImport } from './routes/missions'
 import { Route as LedgerRouteImport } from './routes/ledger'
+import { Route as IncentivesRouteImport } from './routes/incentives'
 import { Route as GraphRouteImport } from './routes/graph'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -30,6 +31,11 @@ const LedgerRoute = LedgerRouteImport.update({
   path: '/ledger',
   getParentRoute: () => rootRouteImport,
 } as any)
+const IncentivesRoute = IncentivesRouteImport.update({
+  id: '/incentives',
+  path: '/incentives',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GraphRoute = GraphRouteImport.update({
   id: '/graph',
   path: '/graph',
@@ -44,6 +50,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/graph': typeof GraphRoute
+  '/incentives': typeof IncentivesRoute
   '/ledger': typeof LedgerRoute
   '/missions': typeof MissionsRoute
   '/wisdom': typeof WisdomRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/graph': typeof GraphRoute
+  '/incentives': typeof IncentivesRoute
   '/ledger': typeof LedgerRoute
   '/missions': typeof MissionsRoute
   '/wisdom': typeof WisdomRoute
@@ -59,21 +67,36 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/graph': typeof GraphRoute
+  '/incentives': typeof IncentivesRoute
   '/ledger': typeof LedgerRoute
   '/missions': typeof MissionsRoute
   '/wisdom': typeof WisdomRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/graph' | '/ledger' | '/missions' | '/wisdom'
+  fullPaths:
+    | '/'
+    | '/graph'
+    | '/incentives'
+    | '/ledger'
+    | '/missions'
+    | '/wisdom'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/graph' | '/ledger' | '/missions' | '/wisdom'
-  id: '__root__' | '/' | '/graph' | '/ledger' | '/missions' | '/wisdom'
+  to: '/' | '/graph' | '/incentives' | '/ledger' | '/missions' | '/wisdom'
+  id:
+    | '__root__'
+    | '/'
+    | '/graph'
+    | '/incentives'
+    | '/ledger'
+    | '/missions'
+    | '/wisdom'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   GraphRoute: typeof GraphRoute
+  IncentivesRoute: typeof IncentivesRoute
   LedgerRoute: typeof LedgerRoute
   MissionsRoute: typeof MissionsRoute
   WisdomRoute: typeof WisdomRoute
@@ -102,6 +125,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LedgerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/incentives': {
+      id: '/incentives'
+      path: '/incentives'
+      fullPath: '/incentives'
+      preLoaderRoute: typeof IncentivesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/graph': {
       id: '/graph'
       path: '/graph'
@@ -122,6 +152,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   GraphRoute: GraphRoute,
+  IncentivesRoute: IncentivesRoute,
   LedgerRoute: LedgerRoute,
   MissionsRoute: MissionsRoute,
   WisdomRoute: WisdomRoute,
